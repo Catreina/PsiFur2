@@ -1,0 +1,148 @@
+<html>
+<head>
+<title>mUnzip - Readme and help file</title>
+<style type="text/css">
+body { cursor: default; }
+body,td { font: 0.8em Arial; }
+tt { font-size: 1em; }
+h1 { font: bold 1.5em Arial; }
+h2 { font: bold 1.3em Arial; }
+p { margin-top: 0.5em; margin-bottom: 0.5em; text-indent: 0.5em; }
+dl { margin-top: 0em; margin-bottom: 0.5em; }
+dt { font-weight: bold; margin-top: 0.5em; }
+dd { margin-left: 1em; margin-bottom: 0.25em; }
+</style>
+</head>
+
+<body>
+
+<h1>mUnzip 1.0</h1>
+
+<p>mUnzip is a .zip decompressing DLL for mIRC, by <a href="mailto:ircweb@hotmail.com">Kamek</a>, based on Info-ZIP's Unzip program source.</p>
+
+<p>mUnzip works with signals (introducted in mIRC 6.0) to let the script interact with the DLL.</p>
+
+<h1>Unzip function syntax</h1>
+
+<p>The Unzip function syntax is: <tt>Unzip [-flags] [signal] [pattern] &lt;zip file&gt; &lt;output path&gt;</tt></p>
+
+<p>For example: <tt>//echo -a $dll(mUnzip.dll, Unzip, -dS mysignal C:\MyFile.zip "C:\Extract dir\"</tt></p>
+
+<p>Where the flags are:</p>
+
+<table border="1" rules="groups" bordercolor="#DDDDDD" cellspacing="0" cellpadding="2">
+<tbody valign="10">
+<tr><td colspan="2"><b>Behavior flags</b></td></tr>
+<tr><td colspan="2">You can use only one of these flags at a time</td></tr>
+<tr>
+	<td>-o</td>
+	<td>Always overwrite files</td>
+</tr>
+<tr>
+	<td>-E</td>
+	<td>Extract only newer files (skip replacing files that are older than your local files)</td>
+</tr>
+</tgroup>
+<tr>
+	<td colspan="2">If you don't specify any of the flags above, a replacing signal will be sent.</td>
+</tr>
+</tbody>
+
+<tbody valign="10">
+<tr><td colspan="2"><b>Informational flags</b></td></tr>
+<tr>
+	<td>-t</td>
+	<td>Test zip file (test integrity without extracting)</td>
+</tr>
+<tr>
+	<td>-v</td>
+	<td>List all the files that are available, but without extracting</td>
+</tr>
+<tr>
+	<td>-z</td>
+	<td>Show zip file comment</td>
+</tr>
+<tr>
+	<td>-Z</td>
+	<td>Shows extensive information about the specified archive (beware, you'll be FLOODED with information)</td>
+</tr>
+</td></tr>
+</tbody>
+
+<tbody valign="10">
+<tr><td colspan="2"><b>Other flags</b></td></tr>
+<tr>
+	<td>-d</td>
+	<td>Use the specified folder names (keep the same dir structure from the zip file, <b>highly recommended</b>)</td>
+</tr>
+<tr>
+	<td>-M</td>
+	<td>Custom wildmask pattern: a pattern will specify which files should be extracted. Currently, only one pattern is allowed (you can't, for example, use *.txt;*.exe).</td>
+</tr>
+<tr>
+	<td>-Q<i>n</i></td>
+	<td>Makes the operation more quiet: -Q1 echoes few information, -Q2 hides any echo signals</td>
+</tr>
+<tr>
+	<td>-S</td>
+	<td>Custom signal name: right after the flags, you'll need to specify a suffix for the signal.</td>
+</tr>
+</table>
+
+<p>You shouldn't use any behavior or informational flag at the same time, and shouldn't mix behavior and informational flags. -d and -Q<i>n</i> don't work with the information flags. Also, please note that, even when you're just using one of the informational flags, you still need to specify a target directory (valid or not).</p>
+
+
+<h2>Return values</h2>
+
+<p>The function will either return a success or an error code.</p>
+
+<p>Success codes are in the format <tt>S_OK |+[status flags]</tt>, where [status flags] can contain <tt>w</tt> if some minor wrong thing happened (for example, a file that couldn't be extracted because it needed a password) or <tt>c</tt> if the zip file has a comment.</p>
+
+<p>If you use the -v flag, however, the returned value will have some more information:<br>
+<tt>S_OK |+[status flags]|&lt;total compressed size&gt; &lt;total decompressed size&gt; &lt;avg compression ratio&gt;|&lt;total number of files&gt;</tt></p>
+
+<p>The error codes are in the format <tt>E_[name] [description]</tt>, where [name] is a small name for the error (that will remain constant) and [description] is a human-readable description. For example: <tt>E_INVPARM Invalid parameters</tt>.</p>
+
+
+<h1>Signals</h1>
+
+<p>mUnzip uses signals to communicate with mIRC and interact with the script. The format of a signal is: <tt>on *:SIGNAL:&lt;signal&gt;:&lt;code&gt;</tt>
+
+<p>If you don't specify any custom signal name (-S flag), it will be <tt>mUnzip</tt>. If you do, it will be <tt>mUnzip_<i>suffix</i></tt> (like <tt>mUnzip_Sample</tt>).</p>
+
+<p>When a signal is called, $1 corresponds to the "event" that can be handled and $2- corresponds to the parameters.</p>
+
+<p>The following are the supported events:</p>
+
+<dl>
+<dt>echo</dt>
+	<dd>Called when the DLL wants to output something. As this DLL is based on a console program, much of its output may look like a DOS utility output.</dd>
+	<dd>You can use the -Q<i>n</i> flag to determine the amount of information you want echoed.</dd>
+<dt>list</dt>
+	<dd>Occurs when you use the -v flag. A 'list' event is called for each file in the archive.</dd>
+	<dd>$2- corresponds to a string in the following format:<br>
+		<tt>&lt;filename&gt;|&lt;size&gt; &lt;comp. size&gt; &lt;ratio&gt;|&lt;date&gt; &lt;time&gt;|&lt;crc&gt; &lt;deflating method&gt; +[status flags]</tt></dd>
+	<dd>For now, the only status flag is <tt>e</tt> (encrypted file).</dd>
+	<dd>You should use $gettok() to parse this list.</dd>
+<dt>comment</dt>
+	<dd>Occurs when you use the -z flag. Each line in the zip comments will call this event, where $2- is the line.</dd>
+<dt>replace</dt>
+	<dd>Occurs when you don't use neither -E nor -o flags. $2- will correspond to the filename in your computer which is about to be overwritten.</dd>
+	<dd>You can use <tt>/dll mUnzip.dll Reply &lt;reply&gt;</tt> to answer what to do. The reply can be "yes", "no", "yes all" or "no all". "no" is the default action.</dd>
+<dt>extracted</dt>
+	<dd>Occurs when the DLL has just finished extracting the specified filename. $2- will be <tt>&lt;filename&gt;|&lt;file size&gt;</tt>.
+      If you want to stop extracting any files further, you can use <tt>/dll mUnzip.dll Reply stop</tt>.</dd>
+</dl>
+
+
+<h1>Other features</h1>
+
+<p>The DLLInfo function returns some information about the DLL. You don't really need any parameters.</p>
+
+<p>Example of use: <tt>//echo -a $dll(mUnzip.dll, DLLInfo, .)</tt></p>
+
+<p>The code I made for DLL is actually just an interface for the wonderful work the people from Info-ZIP made in their Unzip application. If you want to know more about Info-ZIP, you should visit <a href="http://www.info-zip.org/">http://www.info-zip.org/</a>.</p>
+
+</body>
+</html>
+<!-- btw, please don't make something like a WinZip for mIRC :P -->

@@ -1,0 +1,3 @@
+#ifndef PSIFUR_FUNCTIONS_INC
+#define PSIFUR_FUNCTIONS_INC
+#endif

@@ -1,0 +1,166 @@
+<!--
+PsiFur2_VERSION 2.0.1b
+PsiFur2_RELEASEDATE 4/7/2004
+PsiFur2_AUTHOR Jennifer
+PsiFur2_PATH /PsiFur/downloads/
+PsiFur2_FILE PsiFur-mIRC-2.0.1b.zip
+// END PsiFur2 HEADER -->
+
+<html>
+<head>
+<meta name="description" content="A site designed to feature mirc scripts, addons, and programs designed by John Saucier and Jon Snow. All scripts are free to use and modify as long as you credit the original creator in someway. ">
+<meta name="keywords" content="mirc, scripts, scripting, programming, irc, addons, gpl,  internet relay chat, chat, windows, client, scripting tutorials, download, mirc addons, mirc 6, free scripts, free downloads, irc network, mirc files, scripting language">
+</head>
+<body>
+<pre>
+****************************************************
+
+                 <a href="downloads/PsiFur-mIRC-2.0.1b.zip">PsiFur v2.0.1b for mIRC</a>
+                150 KB (154,179 bytes)
+                   by Jennifer Snow
+
+****************************************************
+
+        mIRC PsiFur Encryption DLL v2.0.1b
+
+                ©2004 Jennifer Snow
+
+****************************************************
+
+  PsiFur v2 - A Crypto Addon for popular IRC Clients.
+  Copyright (C) 2002 Mike Parkin - Linux XChat Port
+  Copyright (C) 2004 Jennifer Snow - Ports for Windows XChat and mIRC
+  
+  This program is free software; you can redistribute it and/or modify
+  it under the terms of the GNU General Public License as published by
+  the Free Software Foundation; either version 2 of the License, or
+  (at your option) any later version.
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  GNU General Public License for more details.
+  
+  You should have received a copy of the GNU General Public License
+  along with this program; if not, write to the Free Software
+  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+</pre>
+<a href="http://www.stormcenter.net/dwarfstar/cryptext.html" target="_psifur">Original PsiFur HomePage</a> (linux XChat)
+<pre>
+****************************************************
+            Installation Instructions
+****************************************************
+
+   Installation is designed to be quick and easy.
+
+I will step through the process from extracting the zipfile to using PsiFur.
+
+1) Extract the zipfile [$Filename] to whatever location you choose.
+   PsiFur is designed to run correctly no matter what directory it
+   is installed to, as long as the directory structure is preserved
+   (every zip utility I have used preserves directory structure by
+   default)
+
+2) Load the PsiFur2.mrc file
+    a) In the scripts dialog within mIRC
+        1)  Alt+R or Scripts Editor
+        2) Browse to where you extracted PsiFur.  If it was on
+           C:\ this would be C:\PsiFur2
+        3) Double Click the PsiFur2.mrc file
+        4) Click YES to the "Initialization" window that will pop up.  
+           Without allowing the initialization to process, the script
+           will fail
+
+    b) Command-line in any mIRC window
+        1) Get the location where you extracted PsiFur.  If it was on
+           C:\ this would be C:\PsiFur2
+        2) Load the PsiFur2.mrc file by typing "/load -rs <path to PsiFur2>\PsiFur2.mrc"
+           If you happen to extract to the main mIRC directory, you would type
+           "/load -rs $mircdirPsiFur2\PsiFur2.mrc"
+           Yes, there is NO slash - \ - between $mircdir and PsiFur2.  This
+           is because mIRC returns $mircdir with a trailing slash.
+        3) Click YES to the "Initialization" window that will pop up.  
+           Without allowing the initialization to process, the script
+           will fail
+
+3) Once PsiFur2 is installed, it will add a menu item to your popups,
+   so that you can easily access the user-friendly dialog.  Click on
+   Commands->PsiFur2 v2.0.1b in the mIRC Menubar. On the dialog menu,
+   if you click Help->Contents, it will display some useful
+   descriptions of some of the options, and what they do.  One minor
+   issue (if you got PsiFur2 from mIRCScripts.org) - crypt-all keys
+   does NOT have 3 different options.  It is a static field that will
+   have more options in a future release.
+
+;****************************************************
+;
+;  Feedback is always welcomed, and right now is 
+;  being requested for more features/bugfixing.
+;
+;  Planned for Next Release:
+;    - Blowfish Encryption Algorithm
+'
+;    - Plugin Support For additional Algo's
+;
+;    - More return codes, error checking. There is 
+;      already a slew of this, and input checking, 
+;      in the DLL, and quite a bit in the script now,
+;      just not enough for me...  yet
+;
+;    - Extensive Help file - currently in development
+;
+;    - Complete rewrite of the auto-updater - The current
+;      updater is good, but I am not happy with it...
+;
+;    - Better random keyslot selection and checking.  See
+;      below.
+;    
+;  Known issues/bugs:
+;
+;    - I know that the update feature locks up mIRC
+;      for short time. I am working on this, and 
+;      will accept any suggestions for fixing it.
+;      If you look at the code, you will see that
+;      there is already a timer involved.
+;
+;    - The use of random keys can generate errors, if the
+;      key that is selected happens to be empty.  This will
+;      cause the decrypt function to fail with a descriptive
+;      error.  Because of this, random key selection is 
+;      restricted to the (normally) static keyset of 0-9.
+;      Again, if any of these become empty, the decryption
+;      routine will fail. 
+;
+;
+;****************************************************
+;  Version history
+;
+;  v2.0.1b - 4/9/2004
+;    - Initial release utilizing C++ DLL. mIRC Script now
+;      using hashtables.  An AutoUpdate feature and 
+;      new dialog based config are implemented.
+;    - Now using MDX for download progress bar as well as
+;      for possible future upgrades/enhancements
+;
+;  v1.2b - 10/03/02
+;    - Fixed a minor bug where, when loading for the first
+;      time, a user would generate invalid crypted text
+;      messages.
+;    - Fixed a bug where the /crsave function would not 
+;      save the config file to the correct directory.
+;
+;  v1.2 - 10/02/02
+;    - Repaired the "end of crypted string space" bug
+;    - Changed script and dll to allow loading from any
+;      directory
+;    - Fixed a minor bug that would try to use a key 
+;      that did not exist.
+;
+;  v1.1 - 09/29/02
+;    - Initial port and compilation. First mIRC release
+;
+;****************************************************
+
+</pre>
+</body>
+</html>

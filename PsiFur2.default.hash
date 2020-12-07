@@ -1,0 +1,44 @@
+keyF
+Default key - leave alone for compatibility
+key3
+These keys will be common with a default installation
+encpriv
+0
+key0
+Default key - leave alone for compatibility
+keyD
+
+key1
+Second default key
+autoupdate
+1
+keyE
+This is my PsiFur v2 test key
+keyB
+
+keyC
+
+key8
+This is not military grade encryption
+key9
+You'll want to change these to your own keys and distribute them
+keyA
+
+key6
+I would recommend using pgp for distribution
+usekey
+0
+key7
+Shameless plug for irc.dwarfstar.net
+debugwindow
+1
+randkey
+0
+key4
+When you change these keys, you will have to distribute them
+key5
+Secure key distribution is a separate issue
+key2
+Third default key
+encryptall
+0

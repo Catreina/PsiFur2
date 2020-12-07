@@ -1,0 +1,46 @@
+key1
+Second default key
+autoupdate
+1
+keyF
+Leigh's Key
+key8
+This is not military grade encryption
+keyD
+8$9ju*12sdfZQ
+key9
+You'll want to change these to your own keys and distribute them
+debugwindow
+1
+encryptall
+0
+keyE
+Legacy Crypted Text
+key6
+I would recommend using pgp for distribution
+usekey
+F
+keyB
+This is a cypher text that I created myself. I love encryption because it is pro. I am a noob.
+key7
+S9 Base key. DO NOT DISTRIBUTE
+keyC
+
+key4
+When you change these keys, you will have to distribute them
+randkey
+0
+key5
+This is a cypher text that I created myself. I love encryption because it is pro. I am a noob.
+keyA
+
+key2
+Third default key
+cryptallkeys
+1
+key3
+These keys will be common with a default installation
+encpriv
+0
+key0
+Default key - leave alone for compatibility

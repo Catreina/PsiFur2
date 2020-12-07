@@ -1,0 +1,17 @@
+LIBRARY PsiFur2
+
+EXPORTS
+  LoadDll = _LoadDll@4
+  UnloadDll = _UnloadDll@4
+
+  plain2cypher = _plain2cypher@24
+  cypher2plain = _cypher2plain@24
+  setkey = _setkeystring@24
+  getkey = _getkeystring@24
+  usekey = _usekeyslot@24
+  delkey = _deletekeystring@24
+  randkey = _randomkeys@24
+  cryptall = _cryptall@24
+  encrypt = _encryp@24
+  version = _version@24
+  dllinfo = _dllinfo@24
